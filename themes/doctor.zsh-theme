@@ -4,7 +4,7 @@ CRUNCH_GIT_CLEAN_COLOR="%{$fg[green]%}"
 CRUNCH_GIT_DIRTY_COLOR="%{$fg[yellow]%}"
 CRUNCH_DIR_COLOR="%{$fg[cyan]%}"
 
-CRUNCH_DIR_="$CRUNCH_DIR_COLOR%~\$(git_prompt_info) "
+CRUNCH_DIR_="$CRUNCH_DIR_COLOR%~/\$(git_prompt_info) "
 
 # These Git variables are used by the oh-my-zsh git_prompt_info helper:
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[blue]%}(%{$fg[red]%}"
@@ -20,6 +20,6 @@ local current_dir='%{$terminfo[bold]$fg[blue]%} %~%{$blue%}'
 
 local git_branch='$(git_prompt_info)%{$reset_color%}'
 
-PROMPT="╭─${user_host} $CRUNCH_DIR_
+PROMPT="╭─${user_host} $CRUNCH_DIR_%{$reset_color%}
 ╰─%B▶%b "
 RPS1="${return_code}"
