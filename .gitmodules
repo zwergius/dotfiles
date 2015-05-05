@@ -4,3 +4,5 @@
 [submodule "solarized"]
 	path = solarized
 	url = git://github.com/altercation/solarized.git
+
+ignore = dirty

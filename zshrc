@@ -1,4 +1,5 @@
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:./node_modules/.bin" # adding gulp eslint to the path
 
 ZSHA_BASE=$HOME/.dotfiles
 
@@ -13,6 +14,7 @@ antigen bundle command-not-found
 antigen bundle history-substring-search
 antigen bundle terminalapp
 antigen bundle osx
+antigen bundle brew
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
