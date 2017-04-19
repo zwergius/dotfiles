@@ -3,6 +3,8 @@ export PATH="$PATH:./node_modules/.bin" # adding gulp eslint to the path
 
 ZSHA_BASE=$HOME/Git/dotfiles
 
+source $HOME/.aliases
+source $HOME/.vim_pluginsrc
 source $ZSHA_BASE/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
@@ -16,6 +18,9 @@ antigen bundle terminalapp
 antigen bundle osx
 antigen bundle brew
 
+# NVM
+antigen bundle lukechilds/zsh-nvm
+
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
@@ -24,3 +29,6 @@ antigen theme $ZSHA_BASE/themes doctor.zsh-theme
 
 # Tell antigen that you're done.
 antigen apply
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
