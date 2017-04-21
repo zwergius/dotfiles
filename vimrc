@@ -27,11 +27,10 @@ Plug 'w0ng/vim-hybrid'
 " Language pack, https://github.com/sheerun/vim-polyglot
 Plug 'sheerun/vim-polyglot'
 
-" JS syntax highligting
-"Plug 'jelera/vim-javascript-syntax'
-" JS code completion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-"
+"linting
+Plug 'vim-syntastic/syntastic'
+Plug 'mtscout6/syntastic-local-eslint.vim'
+
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -44,10 +43,11 @@ call plug#end()
 "julien's minimum stuff
 "syntax off
 filetype plugin indent on
-set omnifunc=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
 "let mapleader = "<\space>"
 set nocp paste acd is scs nu hid ssl sm wmnu ar noerrorbells visualbell t_vb="" sw=2 ch=2 ls=0 so=2 wim=longest,list,full mouse=a mousemodel=extend
 set noautochdir
+set clipboard=unnamed
 "runtime macros/matchit.vim
 "let g:netrw_cursorline=0
 
@@ -55,8 +55,7 @@ set noautochdir
 set nocompatible                " choose no compatibility with legacy vi
 set encoding=utf-8
 set showcmd                     " display incomplete commands
-"filetype plugin indent on       " load file type plugins + indentation
-"" Whitespace
+" Whitespace
 set nowrap                      " don't wrap lines
 set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
 set expandtab                   " use spaces, not tabs (optional)
@@ -82,3 +81,20 @@ ino ( ()<left>
 ino [ []<left>
 ino { {}<left>
 ino {<CR> {<CR>}<ESC>O
+
+"linting
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"my mappings
+
+"vimrc helpers
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
