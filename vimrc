@@ -42,10 +42,10 @@ call plug#end()
 
 "julien's minimum stuff
 "syntax off
-filetype plugin indent on
+"filetype plugin indent on
 "set omnifunc=syntaxcomplete#Complete
 "let mapleader = "<\space>"
-set nocp paste acd is scs nu hid ssl sm wmnu ar noerrorbells visualbell t_vb="" sw=2 ch=2 ls=0 so=2 wim=longest,list,full mouse=a mousemodel=extend
+"set nocp paste acd is scs nu hid ssl sm wmnu ar noerrorbells visualbell t_vb="" sw=2 ch=2 ls=0 so=2 wim=longest,list,full mouse=a mousemodel=extend
 set noautochdir
 set clipboard=unnamed
 "runtime macros/matchit.vim
@@ -57,12 +57,13 @@ set encoding=utf-8
 set showcmd                     " display incomplete commands
 " Whitespace
 set nowrap                      " don't wrap lines
-set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
-set expandtab                   " use spaces, not tabs (optional)
+set tabstop=2 shiftwidth=2 expandtab     " a tab is two spaces (or set this to 4)
 set backspace=indent,eol,start  " backspace through everything in insert mode
 set autoindent
 set smartindent
-
+"split behaviour
+set splitbelow
+set splitright
 "" Searching
 set hlsearch                    " highlight matches
 set incsearch                   " incremental searching
@@ -98,3 +99,8 @@ let g:syntastic_check_on_wq = 0
 "vimrc helpers
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+"split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>

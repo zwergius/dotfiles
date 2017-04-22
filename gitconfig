@@ -73,3 +73,5 @@
 	trustExitCode = true
 [push]
 	default = simple
+[core]
+	excludesfile = /Users/dr_zwerge/.gitignore
