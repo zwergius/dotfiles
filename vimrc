@@ -46,6 +46,7 @@ call plug#end()
 "set omnifunc=syntaxcomplete#Complete
 "let mapleader = "<\space>"
 "set nocp paste acd is scs nu hid ssl sm wmnu ar noerrorbells visualbell t_vb="" sw=2 ch=2 ls=0 so=2 wim=longest,list,full mouse=a mousemodel=extend
+set autoread
 set noautochdir
 set clipboard=unnamed
 "runtime macros/matchit.vim
@@ -56,11 +57,16 @@ set nocompatible                " choose no compatibility with legacy vi
 set encoding=utf-8
 set showcmd                     " display incomplete commands
 " Whitespace
+set list
+set listchars=""                      " reset
+set listchars=tab:→\ 
+set listchars+=trail:·
 set nowrap                      " don't wrap lines
 set tabstop=2 shiftwidth=2 expandtab     " a tab is two spaces (or set this to 4)
 set backspace=indent,eol,start  " backspace through everything in insert mode
 set autoindent
 set smartindent
+set noshiftround
 "split behaviour
 set splitbelow
 set splitright
