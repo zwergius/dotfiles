@@ -42,10 +42,9 @@ call plug#end()
 
 "julien's minimum stuff
 "syntax off
-"filetype plugin indent on
 "set omnifunc=syntaxcomplete#Complete
-"let mapleader = "<\space>"
-"set nocp paste acd is scs nu hid ssl sm wmnu ar noerrorbells visualbell t_vb="" sw=2 ch=2 ls=0 so=2 wim=longest,list,full mouse=a mousemodel=extend
+""let mapleader = "<\space>"
+set nocp paste nu hid ssl sm wmnu noerrorbells visualbell t_vb="" ch=2 ls=0 so=2 wim=longest,list,full mouse=a mousemodel=extend
 set autoread
 set noautochdir
 set clipboard=unnamed
@@ -53,7 +52,6 @@ set clipboard=unnamed
 "let g:netrw_cursorline=0
 
 " https://www.sitepoint.com/getting-started-vim/
-set nocompatible                " choose no compatibility with legacy vi
 set encoding=utf-8
 set showcmd                     " display incomplete commands
 " Whitespace
@@ -110,3 +108,10 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+"FZF find in files
+command! -bang FLines call fzf#vim#grep(
+     \ 'grep -vnITr --color=always --exclude-dir=".svn" --exclude-dir=".git" --exclude=tags --exclude=*\.pyc --exclude=*\.exe --exclude=*\.dll --exclude=*\.zip --exclude=*\.gz "^$"', 
+     \ 0,  
+     \ {'options': '--reverse --prompt "FLines> "'})
+
+nnoremap <silent> <leader>e :FLines<cr>
