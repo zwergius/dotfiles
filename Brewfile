@@ -10,6 +10,7 @@ brew 'vim', args: ['--override-system-vi']
 brew 'node'
 brew 'yarn'
 brew 'cmake'
+brew 'ripgrep'
 # install node
 # install yarn
 #
