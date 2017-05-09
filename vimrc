@@ -108,6 +108,11 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+"pretty print json
+nnoremap <leader>j :%!python -m json.tool<cr>
+"search files
+nnoremap <leader>p :Files<cr>
+nnoremap <leader>f :Find
 " --column: Show column number
 " --line-number: Show line number
 " --no-heading: Do not show file headings in results
