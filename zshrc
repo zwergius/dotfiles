@@ -1,5 +1,5 @@
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="$PATH:./node_modules/.bin" # adding gulp eslint to the path
+export PATH=/usr/local/lib/ruby/gems/2.4.0/bin:$PATH
+export PATH=/usr/local/opt/ruby/bin:$PATH
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders

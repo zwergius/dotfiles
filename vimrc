@@ -28,8 +28,9 @@ Plug 'w0ng/vim-hybrid'
 Plug 'sheerun/vim-polyglot'
 
 "linting
-Plug 'vim-syntastic/syntastic'
-Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'w0rp/ale'
+""Plug 'vim-syntastic/syntastic'
+""Plug 'mtscout6/syntastic-local-eslint.vim'
 
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -42,9 +43,10 @@ call plug#end()
 
 "julien's minimum stuff
 "syntax off
+"filetype plugin on
 "set omnifunc=syntaxcomplete#Complete
-""let mapleader = "<\space>"
-set nocp paste nu hid ssl sm wmnu noerrorbells visualbell t_vb="" ch=2 ls=0 so=2 wim=longest,list,full mouse=a mousemodel=extend
+let mapleader = "\<Space>"
+set nocp nu hid ssl sm wmnu noerrorbells visualbell t_vb="" ch=2 ls=0 so=2 wim=longest,list,full mouse=a mousemodel=extend
 set autoread
 set noautochdir
 set clipboard=unnamed
@@ -73,31 +75,36 @@ set hlsearch                    " highlight matches
 set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
+" clear searched text on enter
+nnoremap <silent> <CR> :noh<CR><CR>
 syntax on
 set t_Co=256
 "let g:solarized_termcolors=256 
 set background=dark
 colorscheme hybrid 
-
 " autocompletes
-ino " ""<left>
-ino ' ''<left>
-ino ( ()<left>
-ino [ []<left>
-ino { {}<left>
-ino {<CR> {<CR>}<ESC>O
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ` ``<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap `<CR> `<CR>`<ESC>O
+inoremap [<CR> [<CR>]<ESC>O
 
-"linting
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"linting 
+let g:ale_statusline_format = ['⬥ %d', '⚠ %d', '✓']
+""let g:syntastic_javascript_checkers = ['eslint']
+""let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
+""
+""set statusline+=%#warningmsg#
+""set statusline+=%{SyntasticStatuslineFlag()}
+""set statusline+=%*
+""let g:syntastic_always_populate_loc_list = 1
+""let g:syntastic_auto_loc_list = 1
+""let g:syntastic_check_on_open = 1
+""let g:syntastic_check_on_wq = 0
 "my mappings
 
 "vimrc helpers
@@ -112,7 +119,7 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <leader>j :%!python -m json.tool<cr>
 "search files
 nnoremap <leader>p :Files<cr>
-nnoremap <leader>f :Find
+nnoremap <leader>f :Find 
 " --column: Show column number
 " --line-number: Show line number
 " --no-heading: Do not show file headings in results
@@ -124,3 +131,21 @@ nnoremap <leader>f :Find
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+" Status Line"
+" cf the default statusline: %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" format markers:
+"   %< truncation point
+"   %n buffer number
+"   %f relative path to file
+"   %m modified flag [+] (modified), [-] (unmodifiable) or nothing
+"   %r readonly flag [RO]
+"   %y filetype [ruby]
+"   %= split point for left and right justification
+"   %-35. width specification
+"   %l current line number
+"   %L number of lines in buffer
+"   %c current column number
+"   %V current virtual column number (-n), if different from %c
+"   %P percentage through buffer
+"   %) end of width specification
+set statusline=%<\ %n:%f\ %m%r%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%{ALEGetStatusLine()})%)
