@@ -149,3 +149,12 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 "   %P percentage through buffer
 "   %) end of width specification
 set statusline=%<\ %n:%f\ %m%r%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%{ALEGetStatusLine()})%)
+
+" Remove trailing whitespace from .js files"
+function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre *.js* :call <SID>StripTrailingWhitespaces()
