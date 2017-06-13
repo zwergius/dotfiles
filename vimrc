@@ -43,7 +43,7 @@ call plug#end()
 
 "julien's minimum stuff
 "syntax off
-"filetype plugin on
+filetype plugin indent on
 "set omnifunc=syntaxcomplete#Complete
 let mapleader = "\<Space>"
 set nocp nu hid ssl sm wmnu noerrorbells visualbell t_vb="" ch=2 ls=0 so=2 wim=longest,list,full mouse=a mousemodel=extend
@@ -51,7 +51,8 @@ set autoread
 set noautochdir
 set clipboard=unnamed
 "runtime macros/matchit.vim
-"let g:netrw_cursorline=0
+let g:netrw_cursorline=0
+let g:netrw_liststyle=3
 
 " https://www.sitepoint.com/getting-started-vim/
 set encoding=utf-8
@@ -95,6 +96,7 @@ inoremap [<CR> [<CR>]<ESC>O
 
 "linting 
 let g:ale_statusline_format = ['⬥ %d', '⚠ %d', '✓']
+let g:ale_linters = {'html':[]}
 ""let g:syntastic_javascript_checkers = ['eslint']
 ""let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 ""
@@ -120,6 +122,13 @@ nnoremap <leader>j :%!python -m json.tool<cr>
 "search files
 nnoremap <leader>p :Files<cr>
 nnoremap <leader>f :Find 
+"move lines ALT-j and ALT-k"
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
+inoremap ∆ <Esc>:m .+1<CR>==gi
+inoremap ˚ <Esc>:m .-2<CR>==gi
+vnoremap ∆ :m '>+1<CR>gv=gv 
+vnoremap ˚ :m '<-2<CR>gv=gv 
 " --column: Show column number
 " --line-number: Show line number
 " --no-heading: Do not show file headings in results
