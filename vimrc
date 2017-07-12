@@ -51,7 +51,7 @@ set autoread
 set noautochdir
 set clipboard=unnamed
 "runtime macros/matchit.vim
-let g:netrw_cursorline=0
+""let g:netrw_cursorline=0
 let g:netrw_liststyle=3
 
 " https://www.sitepoint.com/getting-started-vim/
@@ -97,18 +97,12 @@ inoremap [<CR> [<CR>]<ESC>O
 "linting 
 let g:ale_statusline_format = ['⬥ %d', '⚠ %d', '✓']
 let g:ale_linters = {'html':[]}
-""let g:syntastic_javascript_checkers = ['eslint']
-""let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
-""
-""set statusline+=%#warningmsg#
-""set statusline+=%{SyntasticStatuslineFlag()}
-""set statusline+=%*
-""let g:syntastic_always_populate_loc_list = 1
-""let g:syntastic_auto_loc_list = 1
-""let g:syntastic_check_on_open = 1
-""let g:syntastic_check_on_wq = 0
-"my mappings
-
+" Console log from insert mode; Puts focus inside parentheses
+inoremap cll console.log();<Esc>==f(a
+" Console log from visual mode on next line, puts visual selection inside parentheses
+vnoremap cll yocll<Esc>p
+" Console log from normal mode, inserted on next line with word your on inside parentheses
+nnoremap cll yiwocll<Esc>p 
 "vimrc helpers
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>

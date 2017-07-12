@@ -11,6 +11,7 @@ brew 'node'
 brew 'yarn'
 brew 'cmake'
 brew 'ripgrep'
+brew 'diff-so-fancy'
 # install node
 # install yarn
 #
