@@ -12,6 +12,8 @@ brew 'yarn'
 brew 'cmake'
 brew 'ripgrep'
 brew 'diff-so-fancy'
+brew 'imagemagick'
+brew 'swiftlint'
 # install node
 # install yarn
 #

@@ -1,6 +1,7 @@
 export PATH="$PATH:./node_modules/.bin" # run loaclly installed node modules 
 export PATH=/usr/local/lib/ruby/gems/2.4.0/bin:$PATH
 export PATH=/usr/local/opt/ruby/bin:$PATH
+export PATH=$HOME/Git/dotfiles/favicon-maker:$PATH
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders

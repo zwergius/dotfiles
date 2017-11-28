@@ -10,3 +10,8 @@ Session.vim
 *~
 # auto-generated tag files
 tags
+# OS generated files #
+######################
+*/.DS_Store
+.DS_Store
+.DS_Store?
