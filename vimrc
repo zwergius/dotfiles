@@ -93,16 +93,13 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap `<CR> `<CR>`<ESC>O
 inoremap [<CR> [<CR>]<ESC>O
+inoremap (<CR> (<CR>)<ESC>O
 
 "linting 
 let g:ale_statusline_format = ['⬥ %d', '⚠ %d', '✓']
 let g:ale_linters = {'html':[]}
 " Console log from insert mode; Puts focus inside parentheses
-inoremap cll console.log();<Esc>==f(a
-" Console log from visual mode on next line, puts visual selection inside parentheses
-vnoremap cll yocll<Esc>p
-" Console log from normal mode, inserted on next line with word your on inside parentheses
-nnoremap cll yiwocll<Esc>p 
+inoremap cll console.log()<Esc>==f(a
 "vimrc helpers
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -123,6 +120,12 @@ inoremap ∆ <Esc>:m .+1<CR>==gi
 inoremap ˚ <Esc>:m .-2<CR>==gi
 vnoremap ∆ :m '>+1<CR>gv=gv 
 vnoremap ˚ :m '<-2<CR>gv=gv 
+"autoclose html tags 
+inoremap ><Tab> ><Esc>F<lyt>o</<C-r>"><Esc>O<Space>
+""inoremap ><Tab> ><Esc>?<[a-z]<CR>lyiwo</<C-r>"><Esc>:noh<CR><Esc>O
+"autoclose html tags INLINE
+inoremap >> ><Esc>F<lyt>f>a</<C-r>"><Esc>F<i
+""inoremap >> ><Esc>?<[a-z]<CR>lyiwh/[^%]><CR>la</<C-r>"><Esc>:noh<CR><Esc>F<i
 " --column: Show column number
 " --line-number: Show line number
 " --no-heading: Do not show file headings in results
