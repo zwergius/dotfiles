@@ -1,8 +1,18 @@
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="$PATH:./node_modules/.bin" # adding gulp eslint to the path
+export PATH="$PATH:./node_modules/.bin" # run loaclly installed node modules 
+export PATH=/usr/local/lib/ruby/gems/2.4.0/bin:$PATH
+export PATH=/usr/local/opt/ruby/bin:$PATH
+export PATH=$HOME/Git/dotfiles/favicon-maker:$PATH
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+#export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+ZSHA_BASE=$HOME/Git/dotfiles
 
-ZSHA_BASE=$HOME/.dotfiles
-
+source $HOME/.aliases
+source $HOME/.vim_pluginsrc
 source $ZSHA_BASE/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
@@ -16,6 +26,10 @@ antigen bundle terminalapp
 antigen bundle osx
 antigen bundle brew
 
+# NVM
+export NVM_LAZY_LOAD=true
+antigen bundle lukechilds/zsh-nvm
+
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
@@ -24,3 +38,6 @@ antigen theme $ZSHA_BASE/themes doctor.zsh-theme
 
 # Tell antigen that you're done.
 antigen apply
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn

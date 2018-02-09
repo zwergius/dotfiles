@@ -64,8 +64,8 @@
 [difftool]
 	prompt = false
 [user]
-	name = Zwerge
-	email = dr_zwerge@hotmail.com
+	name = Christian Zwergius
+	email = christian.zwergius@keytree.es
 [difftool "diffmerge"]
 	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
 [mergetool "diffmerge"]
@@ -73,3 +73,6 @@
 	trustExitCode = true
 [push]
 	default = simple
+[core]
+	excludesfile = ~/.gitignore
+	pager = diff-so-fancy | less --tabs=4 -RFX
