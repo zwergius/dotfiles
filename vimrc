@@ -20,6 +20,9 @@ call plug#begin('~/.vim/plugged')
 " " Using a non-master branch
 " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 "
+" Git
+Plug 'tpope/vim-fugitive'
+
 " Color themes
 Plug 'w0ng/vim-hybrid'
 " Plug 'fatih/vim-go', { 'tag': '*' }
@@ -42,7 +45,8 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 "julien's minimum stuff
-"syntax off
+""syntax off
+syntax on
 filetype plugin indent on
 "set omnifunc=syntaxcomplete#Complete
 let mapleader = "\<Space>"
@@ -54,6 +58,9 @@ set clipboard=unnamed
 ""let g:netrw_cursorline=0
 let g:netrw_liststyle=3
 
+" Folding
+set foldmethod=indent
+set nofoldenable
 " https://www.sitepoint.com/getting-started-vim/
 set encoding=utf-8
 set showcmd                     " display incomplete commands
@@ -78,7 +85,6 @@ set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 " clear searched text on enter
 nnoremap <silent> <CR> :noh<CR><CR>
-syntax on
 set t_Co=256
 "let g:solarized_termcolors=256 
 set background=dark
