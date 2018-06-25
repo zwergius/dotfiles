@@ -168,3 +168,4 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 autocmd BufWritePre *.js* :call <SID>StripTrailingWhitespaces()
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
