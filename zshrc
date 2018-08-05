@@ -26,10 +26,6 @@ antigen bundle terminalapp
 antigen bundle osx
 antigen bundle brew
 
-# NVM
-export NVM_LAZY_LOAD=true
-antigen bundle lukechilds/zsh-nvm
-
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 

@@ -24,7 +24,8 @@ call plug#begin('~/.vim/plugged')
 "
 " " Using a non-master branch
 " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-"
+" Statusline
+Plug 'vim-airline/vim-airline'
 " Git
 Plug 'tpope/vim-fugitive'
 
@@ -107,10 +108,15 @@ inoremap [<CR> [<CR>]<ESC>O
 inoremap (<CR> (<CR>)<ESC>O
 
 "linting 
-let g:ale_statusline_format = ['⬥ %d', '⚠ %d', '✓']
-let g:ale_linters = {'html':[], 'javascript.jsx': ['eslint']}
+""let g:ale_statusline_format = ['⬥ %d', '⚠ %d', '✓']
+let g:airline#extensions#ale#enabled = 1
+let g:ale_linters = {
+      \  'html':[], 
+      \  'javascript': ['eslint'],
+      \  'javascript.jsx': ['eslint'],
+      \}
 let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['javascript'] = ['prettier'] 
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
 " Console log from insert mode; Puts focus inside parentheses
