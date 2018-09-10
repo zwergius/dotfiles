@@ -7,8 +7,8 @@
 
 #Formulaes to be installed
 brew 'vim', args: ['--override-system-vi']
-#brew 'node'
-brew 'yarn', args: ['--without-node']
+brew 'node'
+#brew 'yarn', args: ['--without-node']
 brew 'cmake'
 brew 'ripgrep'
 brew 'diff-so-fancy'

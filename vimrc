@@ -64,6 +64,15 @@ set clipboard=unnamed
 ""let g:netrw_cursorline=0
 let g:netrw_liststyle=3
 
+" CTRL+w saves file
+nnoremap <C-w> :update<cr>
+inoremap <C-w> <Esc>:update<cr>
+" Touchbar hack
+noremap § <ESC>
+inoremap § <ESC>
+" Next center
+nnoremap n nzz
+nnoremap N Nzz
 " Folding
 set foldmethod=indent
 set nofoldenable
@@ -158,24 +167,6 @@ inoremap >> ><Esc>F<lyt>f>a</<C-r>"><Esc>F<i
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-" Status Line"
-" cf the default statusline: %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-" format markers:
-"   %< truncation point
-"   %n buffer number
-"   %f relative path to file
-"   %m modified flag [+] (modified), [-] (unmodifiable) or nothing
-"   %r readonly flag [RO]
-"   %y filetype [ruby]
-"   %= split point for left and right justification
-"   %-35. width specification
-"   %l current line number
-"   %L number of lines in buffer
-"   %c current column number
-"   %V current virtual column number (-n), if different from %c
-"   %P percentage through buffer
-"   %) end of width specification
-set statusline=%<\ %n:%f\ %m%r%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%{ALEGetStatusLine()})%)
 
 " Remove trailing whitespace from .js files"
 function! <SID>StripTrailingWhitespaces()
