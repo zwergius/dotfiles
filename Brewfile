@@ -8,14 +8,13 @@
 #Formulaes to be installed
 brew 'vim', args: ['--override-system-vi']
 brew 'node'
-#brew 'yarn', args: ['--without-node']
 brew 'cmake'
 brew 'ripgrep'
 brew 'diff-so-fancy'
 brew 'imagemagick'
 brew 'swiftlint'
-# install node
-# install yarn
+brew 'mkcert'
+brew 'nss'
 #
 # # Remove outdated versions from the cellar
 # cleanup
