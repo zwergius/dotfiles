@@ -3,15 +3,25 @@
 [._]*.sw[a-p]
 [._]s[a-v][a-z]
 [._]sw[a-p]
+
 # session
 Session.vim
+
 # temporary
 .netrwhist
 *~
+
 # auto-generated tag files
 tags
+
 # OS generated files #
 ######################
 */.DS_Store
 .DS_Store
 .DS_Store?
+
+# NPM
+npm-debug.log*
+node_modules/
+.npm
+

@@ -89,6 +89,7 @@ set tabstop=2 shiftwidth=2 expandtab     " a tab is two spaces (or set this to 4
 set backspace=indent,eol,start  " backspace through everything in insert mode
 set autoindent
 set smartindent
+let g:html_indent_inctags = "html,body,head,tbody,svg,g,defs,path,rect"
 set noshiftround
 "split behaviour
 set splitbelow
@@ -126,6 +127,7 @@ let g:ale_linters = {
       \}
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier'] 
+let g:ale_fixers['html'] = ['prettier'] 
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
 " Console log from insert mode; Puts focus inside parentheses
@@ -177,3 +179,5 @@ function! <SID>StripTrailingWhitespaces()
 endfun
 autocmd BufWritePre *.js* :call <SID>StripTrailingWhitespaces()
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+""Execute js file
+nnoremap <leader><leader> :w !node <cr>
