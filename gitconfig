@@ -17,6 +17,7 @@
     changed = green
     untracked = cyan
 [alias]
+  g = git
   cm = shortlog -nse --no-merges
 
   fi = !git ls-files | grep -i
