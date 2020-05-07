@@ -52,7 +52,7 @@ call plug#end()
 
 "julien's minimum stuff
 ""syntax off
-syntax on
+set syntax=on
 filetype plugin indent on
 "set omnifunc=syntaxcomplete#Complete
 let mapleader = "\<Space>"
@@ -61,7 +61,7 @@ set autoread
 set noautochdir
 set clipboard=unnamed
 "runtime macros/matchit.vim
-""let g:netrw_cursorline=0
+" let g:netrw_cursorline=0
 let g:netrw_liststyle=3
 
 " CTRL+w saves file
@@ -179,5 +179,19 @@ function! <SID>StripTrailingWhitespaces()
 endfun
 autocmd BufWritePre *.js* :call <SID>StripTrailingWhitespaces()
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Automatically create dir if missing when saving file
+augroup vimrc-auto-mkdir
+  autocmd!
+  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+  function! s:auto_mkdir(dir, force)
+    if !isdirectory(a:dir)
+          \   && (a:force
+          \       || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+  endfunction
+augroup END
+
 ""Execute js file
 nnoremap <leader><leader> :w !node <cr>
