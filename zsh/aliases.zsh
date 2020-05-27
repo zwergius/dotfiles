@@ -1,6 +1,5 @@
 #!/bin/sh
-alias reload="source ~/.zshrc"
-alias ..="cd .."
+alias reload!="source ~/.zshrc"
 alias g="git"
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 # alias vim="stty stop '' -ixoff ; vim"

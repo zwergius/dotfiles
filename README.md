@@ -1,9 +1,9 @@
 # dotfiles
 My dotfiles
 
-Clone repo with --recursive (includes antigen & solarized)
+Clone repo with 
 ```
-git clone --recursive https://github.com/Zwerge/dotfiles.git
+git clone 
 ```
 cd to project & run 
 ```
