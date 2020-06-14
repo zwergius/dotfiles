@@ -65,8 +65,7 @@
 [difftool]
 	prompt = false
 [user]
-	name = Christian Zwergius
-	email = christ.i.am@pm.me
+# These values are set in ~/.local.gitconfig
 [difftool "diffmerge"]
 	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
 [mergetool "diffmerge"]
@@ -77,3 +76,5 @@
 [core]
 	excludesfile = ~/.gitignore
 	pager = diff-so-fancy | less --tabs=4 -RFX
+[include]
+  path = ~/.local.gitconfig
