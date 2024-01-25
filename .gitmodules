@@ -1,1 +1,4 @@
 ignore = dirty
+[submodule "config/nvim"]
+	path = config/nvim
+	url = git@github.com:zwergius/kickstart.nvim.git

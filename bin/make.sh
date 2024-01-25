@@ -14,20 +14,6 @@ while [ "$1" != "" ]; do
     shift # Move on to the next input argument
 done
 
-# Use the file_flag variable
-if [ "$overwrite_dotfiles" = true ]; then
-    echo "Flag -f was passed"
-    # You can add additional actions here that should happen if -f is passed
-else
-    echo "Flag -f was not passed"
-fi
-
-# if [ -z "$OVERWRITE_DOTFILES" ]; then
-#   if [ "$CODESPACES" = "true" ]; then
-#     OVERWRITE_DOTFILES=true
-#   fi
-# fi
-
 red() {
   echo " $(tput setaf 1)$*$(tput setaf 9)"
 }
@@ -100,6 +86,7 @@ link_dotfile "Brewfile" ".Brewfile"
 link_dotfile "gitconfig" ".gitconfig"
 link_dotfile "gitignore" ".gitignore"
 link_dotfile "config/alacritty" ".config/alacritty"
+link_dotfile "config/nvim" ".config/nvim"
 
 # link_dotfile "zshenv" ".zshenv"
 # link_dotfile "vimrc-vanilla.vim" ".vim/vimrc-vanilla.vim"
