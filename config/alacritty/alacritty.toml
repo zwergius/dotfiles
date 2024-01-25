@@ -6,5 +6,5 @@ padding = {x = 20, y = 0}
 startup_mode = "Maximized"
 [font]
 # normal = {family = "Iosevka Nerd Font Mono"}
-normal = {family = "iMWritingMonoS Nerd Font"}
+normal = {family = "iMWritingMono Nerd Font"}
 size = 13

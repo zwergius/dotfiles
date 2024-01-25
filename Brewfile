@@ -25,6 +25,7 @@ brew 'git'
 brew 'starship'
 brew 'exa'
 brew 'bat'
+cask 'font-im-writing-nerd-font'
 #cask 'font-iosevka-term-nerd-font'
 #cask 'font-iosevka-nerd-font'
 

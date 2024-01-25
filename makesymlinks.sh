@@ -10,7 +10,7 @@ dir=~/Code/dotfiles                    # dotfiles directory
 olddir=~/.dotfiles_old             # old dotfiles backup directory
 configdir=~/.config
 lvimconfigdir=~/.config/lvim
-files="brewfile vim_pluginsrc aliases bashrc zshrc gitconfig bash_profile vimrc vim gitignore"    # list of files/folders to symlink in homedir
+files="brewfile vim_pluginsrc aliases bashrc zshrc gitconfig bash_profile vimrc gitignore"    # list of files/folders to symlink in homedir
 lvimfiles="config.lua vimrc-auto-mkdir.vim"
 configfolder="lvim"
 configfolders="alacritty"
@@ -49,6 +49,3 @@ for folder in $configfolders; do
   echo "Creating symlink to $folder in home $configdir directory."
   ln -f -s $dir/$folder $configdir/$folder
 done
-
-# installs antibody if needed
-#S$dir/antibody/install.sh
