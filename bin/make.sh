@@ -38,6 +38,10 @@ move_to_backup_dir() {
     fi
   fi
 
+  if [ -e "$backup_path" ]; then
+    rm -rf "$backup_path"
+  fi
+
   mv "$current_path" "$backup_path"
   return $?
 }
@@ -86,4 +90,4 @@ link_dotfile "Brewfile" ".Brewfile"
 link_dotfile "gitconfig" ".gitconfig"
 link_dotfile "gitignore" ".gitignore"
 link_dotfile "config/alacritty" ".config/alacritty"
-link_dotfile "config/nvim" ".config/nvim"
+link_dotfile "../kickstart.nvim" ".config/nvim"
