@@ -2,14 +2,14 @@
 My dotfiles
 
 ## Installaction
-Clone repo with nvim submodule
-```
-git clone --recurse-submodules
-```
+Clone this repo & [nvim repo](https://github.com/zwergius/kickstart.nvim)  
+
 cd to project & run 
+
 ```
 ./bin/make
 ```
+
 open new tab in terminal
 
 install homebrew https://brew.sh
@@ -20,8 +20,3 @@ brew bundle
 ```
 
 clone and run https://github.com/kristovatlas/osx-config-check
-
-## nvim
-nvim is a git submodule that lives in `/config`
-
-To update run: `git submodule update --remote`
