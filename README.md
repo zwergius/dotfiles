@@ -1,14 +1,15 @@
 # dotfiles
 My dotfiles
 
-Clone repo with 
-```
-git clone 
-```
+## Installaction
+Clone this repo & [nvim repo](https://github.com/zwergius/kickstart.nvim)  
+
 cd to project & run 
+
 ```
-./makesymlinks
+./bin/make
 ```
+
 open new tab in terminal
 
 install homebrew https://brew.sh

@@ -6,29 +6,25 @@
 #brew 'upgrade'
 
 # tap's 
-#tap 'homebrew/cask'
 tap 'homebrew/bundle'
-#tap 'homebrew/cask-drivers'
-tap 'homebrew/cask-fonts'
 
 #Formulaes to be installed
 brew 'mas' # Mac AppStore
 brew 'neovim' # Neovim
 brew 'node' # Node
 brew 'n' # Node Version Manager
+brew 'tmux'
 brew 'cmake'
 brew 'ripgrep'
 brew 'diff-so-fancy'
 brew 'imagemagick'
 brew 'mkcert'
 brew 'nss'
-brew 'openssl@1.1'
 brew 'git'
 brew 'starship'
-brew 'exa'
+brew 'eza'
 brew 'bat'
-cask 'font-iosevka-term-nerd-font'
-cask 'font-iosevka-nerd-font'
+cask 'font-im-writing-nerd-font'
 
 #
 # # Remove outdated versions from the cellar
@@ -37,18 +33,12 @@ cask 'font-iosevka-nerd-font'
 # Mac AppStore apps
 mas 'Keynote', id: 409183694
 mas 'Pages', id: 409201541 
-mas 'Tweetbot', id: 557168941
 mas 'Numbers', id: 409203825
 mas 'Xcode', id: 497799835
 mas 'Consent-O-Matic', id: 1606897889
 
 # swiftlint depends on xcode to be installed
 brew 'swiftlint'
-
-# Adnami specific
-brew 'azure-cli'
-cask 'dotnet-sdk'
-cask 'powershell'
 
 # GUI apps
 cask 'firefox'
@@ -76,7 +66,6 @@ cask 'affinity-photo'
 cask 'affinity-publisher'
 cask 'visual-studio-code'
 cask 'epic-games'
-cask 'warp'
 
 cask 'lulu'
 cask 'knockknock'
