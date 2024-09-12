@@ -16,6 +16,8 @@ export HOMEBREW_BUNDLE_FILE=~/.brewfile
 export N_PREFIX=$HOME/.n
 export PATH="$N_PREFIX/bin:$PATH" # use n for node versions
 export DOTNET_CLI_TELEMETRY_OPTOUT='false'
+export XDG_CONFIG_HOME=$HOME/.config
+export ASPNETCORE_ENVIRONMENT=Development
 
 source $HOME/.vim_pluginsrc
 source $DOTFILES/zsh/aliases.zsh

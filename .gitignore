@@ -7,3 +7,4 @@
 # dependencies
 vim/autoload/
 vim/plugged/
+config/tmux/plugins/

@@ -7,23 +7,22 @@
 
 # tap's 
 tap 'homebrew/bundle'
-tap 'homebrew/cask-fonts'
 
 #Formulaes to be installed
 brew 'mas' # Mac AppStore
 brew 'neovim' # Neovim
 brew 'node' # Node
 brew 'n' # Node Version Manager
+brew 'tmux'
 brew 'cmake'
 brew 'ripgrep'
 brew 'diff-so-fancy'
 brew 'imagemagick'
 brew 'mkcert'
 brew 'nss'
-brew 'openssl@1.1'
 brew 'git'
 brew 'starship'
-brew 'exa'
+brew 'eza'
 brew 'bat'
 cask 'font-im-writing-nerd-font'
 
@@ -40,11 +39,6 @@ mas 'Consent-O-Matic', id: 1606897889
 
 # swiftlint depends on xcode to be installed
 brew 'swiftlint'
-
-# Adnami specific
-brew 'azure-cli'
-cask 'dotnet-sdk'
-cask 'powershell'
 
 # GUI apps
 cask 'firefox'
