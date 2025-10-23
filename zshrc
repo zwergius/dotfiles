@@ -3,6 +3,14 @@ export PATH=/usr/local/bin:$PATH
 export PATH="$PATH:./node_modules/.bin" # run loaclly installed node modules 
 export PATH=$HOME/Code/dotfiles/favicon-maker:$PATH
 export PATH=$HOME/.local/bin:$PATH
+
+# Globant AEM start
+#Java export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+export JAVA_HOME=$(/usr/libexec/java_home -v 11)
+export PATH=$JAVA_HOME/bin:$PATH
+# Globant AEM end
+
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders

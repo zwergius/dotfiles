@@ -24,7 +24,6 @@ brew 'git'
 brew 'starship'
 brew 'eza'
 brew 'bat'
-cask 'font-im-writing-nerd-font'
 
 #
 # # Remove outdated versions from the cellar
@@ -52,9 +51,12 @@ cask 'slack'
 cask 'signal'
 cask 'zoom'
 
-cask 'rectangle'
+cask 'font-im-writing-nerd-font'
+cask 'raycast'
+cask 'ghostty'
+#cask 'rectangle'
 cask 'choosy'
-cask 'protonmail-bridge'
+cask 'proton-mail-bridge'
 cask 'spotify'
 cask 'netnewswire'
 #cask 'megasync'
