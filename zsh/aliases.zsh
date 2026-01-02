@@ -4,6 +4,7 @@ alias g="git"
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias ls="eza --icons --group-directories-first"
 alias ll="eza --icons --group-directories-first -l"
+alias bbic="brew update && brew bundle install --cleanup && brew upgrade"
 # alias cat="bat"
 # alias vim="stty stop '' -ixoff ; vim"
 # `Frozing' tty, so after any command terminal settings will be restored

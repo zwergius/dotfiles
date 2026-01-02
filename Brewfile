@@ -24,6 +24,7 @@ brew 'git'
 brew 'starship'
 brew 'eza'
 brew 'bat'
+brew 'direnv'
 
 #
 # # Remove outdated versions from the cellar
@@ -37,7 +38,7 @@ mas 'Xcode', id: 497799835
 mas 'Consent-O-Matic', id: 1606897889
 
 # swiftlint depends on xcode to be installed
-brew 'swiftlint'
+# brew 'swiftlint'
 
 # GUI apps
 cask 'firefox'
@@ -54,12 +55,10 @@ cask 'zoom'
 cask 'font-im-writing-nerd-font'
 cask 'raycast'
 cask 'ghostty'
-#cask 'rectangle'
 cask 'choosy'
 cask 'proton-mail-bridge'
 cask 'spotify'
 cask 'netnewswire'
-#cask 'megasync'
 cask 'zsa-wally'
 cask 'graphiql'
 #cask 'gpg-suite'
