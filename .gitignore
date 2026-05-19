@@ -8,3 +8,6 @@
 vim/autoload/
 vim/plugged/
 config/tmux/plugins/
+
+# local private instruction overrides
+*.local.md
