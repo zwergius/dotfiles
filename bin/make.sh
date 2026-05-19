@@ -84,11 +84,26 @@ link_dotfile() {
   fi
 }
 
+link_optional_dotfile() {
+  local source="$1"
+  local dest="$2"
+
+  if [ -e "$source" ]; then
+    link_dotfile "$source" "$dest"
+  fi
+}
+
 link_dotfile "zshrc" ".zshrc"
 link_dotfile "vimrc" ".vimrc"
 link_dotfile "Brewfile" ".Brewfile"
 link_dotfile "gitconfig" ".gitconfig"
 link_dotfile "gitignore" ".gitignore"
+link_dotfile "AGENTS.md" ".codex/AGENTS.md"
+link_dotfile "GITHUB.md" ".codex/GITHUB.md"
+link_dotfile "LINEAR.md" ".codex/LINEAR.md"
+link_optional_dotfile "AGENTS.local.md" ".codex/AGENTS.local.md"
+link_optional_dotfile "GITHUB.local.md" ".codex/GITHUB.local.md"
+link_optional_dotfile "LINEAR.local.md" ".codex/LINEAR.local.md"
 link_dotfile "config/alacritty" ".config/alacritty"
 link_dotfile "config/ghostty" ".config/ghostty"
 link_dotfile "config/tmux" ".config/tmux"
