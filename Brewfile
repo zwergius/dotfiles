@@ -25,6 +25,8 @@ brew 'starship'
 brew 'eza'
 brew 'bat'
 brew 'direnv'
+brew 'anomalyco/tap/opencode'
+brew 'gh'
 
 #
 # # Remove outdated versions from the cellar
