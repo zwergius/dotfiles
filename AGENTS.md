@@ -5,6 +5,8 @@ Use the focused companion files when the task touches one of those systems:
 
 - [GITHUB.md](GITHUB.md) for GitHub CLI, authentication, PRs, issues, and repository work.
 - [LINEAR.md](LINEAR.md) for Linear issues, projects, comments, and workflow changes.
+- [WEB.md](WEB.md) for frontend, browser, HTML, CSS, accessibility, performance,
+  and modern web platform work.
 
 Private machine-specific details may live in ignored `*.local.md` files next to
 these public instructions. If such a file exists for the relevant area, read it
