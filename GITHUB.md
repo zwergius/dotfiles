@@ -2,8 +2,7 @@
 
 ## Token Access
 
-For GitHub access, use the configured local GitHub CLI credentials or a local
-helper that injects `GH_TOKEN` without printing it.
+For GitHub CLI work that needs authentication, ALWAYS use `gh-codex` instead of `gh`. Plain `gh` is acceptable only for harmless read-only commands that do not require authentication. Do not run `security find-generic-password` inline, and do not manually inject `GH_TOKEN` in shell commands.
 
 Machine-specific credential details may live in an ignored `GITHUB.local.md`
 file. Read it when present, but never commit or quote its contents.
