@@ -3,3 +3,5 @@ font-size = 13
 theme = onenord
 
 adjust-cell-width = -10%
+
+confirm-close-surface = false
