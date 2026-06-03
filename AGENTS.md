@@ -28,9 +28,12 @@ Before editing files for any coding or project task:
 4. If the task is project work and no Linear issue is provided, ask whether to
    create one before implementation.
 5. Create or switch to the task branch or worktree before editing.
-6. State the issue, branch, docs-read, and verification plan briefly before
+6. When using a separate worktree, symlink required ignored env files such as
+   `.env`, `.env.local`, and `.dev.vars` from the main checkout when they exist
+   so the environment works without copying secret contents.
+7. State the issue, branch, docs-read, and verification plan briefly before
    making changes.
-7. Do not change unrelated files or package metadata unless the user explicitly
+8. Do not change unrelated files or package metadata unless the user explicitly
    approves that expanded scope.
 
 ## Git Branch Isolation
