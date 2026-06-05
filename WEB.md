@@ -14,8 +14,11 @@ installed:
 If it is not installed, install it with the Chrome team's recommended installer:
 
 ```sh
-npx -y modern-web-guidance@latest install
+(cd "$HOME" && npx -y modern-web-guidance@latest install)
 ```
+
+Run the installer from `$HOME` so it installs to the global user-level skill
+location instead of creating a project-local `./.agents` directory.
 
 After installation in the current session, read and follow the installed
 `SKILL.md` directly if the skill is not automatically loaded yet. New Codex
