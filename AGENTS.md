@@ -26,26 +26,10 @@ If you have not done these steps, do not edit files.
 Use these focused global references when the local `AGENTS.md` or task scope
 calls for them:
 
+- [GIT.md](GIT.md) for git branch isolation, worktrees, and local repository
+  workflow.
 - [GITHUB.md](GITHUB.md) for GitHub CLI, authentication, PRs, issues, and CI.
 - [LINEAR.md](LINEAR.md) for Linear issues, projects, comments, and workflow
   changes.
 - [WEB.md](WEB.md) for frontend, browser, HTML, CSS, accessibility,
   performance, and modern web platform work.
-
-## Fallback Git Isolation
-
-When a local `AGENTS.md` does not define stricter rules, use these defaults:
-
-- Start coding work on its own branch or isolated worktree before editing.
-- If the work has a Linear issue, use one issue per branch/worktree and include
-  the issue ID in the branch name, for example `codex/ABC-123-short-task`.
-- Before switching branches or creating a worktree, inspect
-  `git status --short --branch`; do not overwrite or move uncommitted work that
-  may belong to the user or another thread.
-- Prefer in-repo worktrees such as `.worktrees/codex-short-task` when creating
-  a worktree manually.
-- In separate worktrees, symlink required ignored env files from the main
-  checkout when present, such as `.env`, `.env.local`, and `.dev.vars`; do not
-  copy, print, or commit secret contents.
-- If `.worktrees/` is not ignored, add only the minimal ignore rule needed
-  before creating an in-repo worktree.
