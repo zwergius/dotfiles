@@ -35,7 +35,9 @@ changes. Use a branch for isolation while editing, then when the work is complet
 1. Commit the branch.
 2. Merge it into `master` locally.
 3. Run `./bin/make.sh` from the main checkout, not from a temporary worktree.
-4. Inspect the real symlinks under `$HOME/.codex` and `$HOME/.config/agents`.
+4. Inspect all managed real symlinks, including root dotfiles like
+   `$HOME/.zshrc`, `$HOME/.gitconfig`, `$HOME/.vimrc`, `$HOME/.Brewfile`, agent
+   links under `$HOME/.codex`, and config links under `$HOME/.config`.
 
 Do not leave active home-directory symlinks pointing at temporary worktrees.
 
@@ -56,7 +58,8 @@ Before finishing installer or agent-config changes:
 - Use a temporary `HOME` to verify the installer behavior without touching the
   real home directory.
 - After merging locally, run the installer against the real home directory from
-  the main checkout, then inspect the generated symlinks under `$HOME/.codex`
-  and `$HOME/.config/agents`.
+  the main checkout, then inspect all generated symlinks, including root dotfiles
+  like `$HOME/.zshrc`, `$HOME/.gitconfig`, `$HOME/.vimrc`, `$HOME/.Brewfile`,
+  agent links under `$HOME/.codex`, and config links under `$HOME/.config`.
 - Do not rely only on the temporary `HOME` check; it proves script behavior, not
   that the active user environment is up to date.
