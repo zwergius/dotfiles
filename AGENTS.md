@@ -43,6 +43,8 @@ Do not leave active home-directory symlinks pointing at temporary worktrees.
 
 ## Verification
 
+Always verify before committing and before pushing.
+
 For installer changes, run:
 
 ```sh
