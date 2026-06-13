@@ -2,7 +2,11 @@
 
 ## Token Access
 
-For GitHub CLI work that needs authentication, ALWAYS use `gh-codex` instead of `gh`. Plain `gh` is acceptable only for harmless read-only commands that do not require authentication. Do not run `security find-generic-password` inline, and do not manually inject `GH_TOKEN` in shell commands.
+For GitHub CLI work that needs authentication, use the configured local GitHub
+helper instead of plain `gh` when one is available. Plain `gh` is acceptable only
+for harmless read-only commands that do not require authentication. Do not run
+private credential-store commands inline, and do not manually inject tokens in
+shell commands.
 
 Machine-specific credential details may live in an ignored `GITHUB.local.md`
 file. Read it when present, but never commit or quote its contents.
@@ -15,8 +19,8 @@ gh-codex repo view OWNER/REPO
 gh-codex pr view 123 --repo OWNER/REPO
 ```
 
-Never hard-code, print, commit, or document personal access tokens, Keychain item
-names, credential helper internals, or private credential commands. Avoid
+Never hard-code, print, commit, or document personal access tokens, credential
+item names, credential helper internals, or private credential commands. Avoid
 `gh auth status` unless debugging because it may show a masked token prefix.
 
 ## PR Standard

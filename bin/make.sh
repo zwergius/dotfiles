@@ -3,6 +3,26 @@
 # Initialize a variable that will hold the value related to the -f flag
 overwrite_dotfiles=false
 
+repo_root="$(cd "$(dirname "$0")/.." && pwd -P)"
+link_root="$repo_root"
+temporary_home=false
+
+case "$HOME" in
+  /private/tmp/*|/tmp/*)
+    temporary_home=true
+    ;;
+esac
+
+if git_common_dir="$(git -C "$repo_root" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)"; then
+  if [ "$(basename "$git_common_dir")" = ".git" ]; then
+    main_repo_root="$(dirname "$git_common_dir")"
+
+    if [ -d "$main_repo_root" ]; then
+      link_root="$main_repo_root"
+    fi
+  fi
+fi
+
 # Process the input arguments
 while [ "$1" != "" ]; do
     case $1 in
@@ -50,8 +70,18 @@ link_dotfile() {
   local source="$1"
   local dest="$2"
   local full_dest="$HOME/$dest"
+  local full_source="$link_root/$source"
 
-  if [ "$overwrite_dotfiles" = "false" ] && [ -L "$full_dest" ] && [ "$full_dest" -ef "$source" ]; then
+  if [ ! -e "$full_source" ]; then
+    if [ "$link_root" != "$repo_root" ] && [ "$temporary_home" = "false" ] && [ "${DOTFILES_ALLOW_WORKTREE_LINKS:-false}" != "true" ]; then
+      red "✘ $source only exists in this linked worktree; run from the main checkout after merge"
+      return
+    fi
+
+    full_source="$repo_root/$source"
+  fi
+
+  if [ "$overwrite_dotfiles" = "false" ] && [ -L "$full_dest" ] && [ "$full_dest" -ef "$full_source" ]; then
     yellow "✔ $dest is already linked"
     return
   fi
@@ -77,20 +107,40 @@ link_dotfile() {
     fi
   fi
 
-  if ln -s "$(pwd)/$source" "$full_dest"; then
+  if ln -s "$full_source" "$full_dest"; then
     green "✔ $dest has been linked"
   else
     red "✘ $dest link couldn't be created"
   fi
 }
 
-link_optional_dotfile() {
-  local source="$1"
-  local dest="$2"
+link_agent_config() {
+  local source
+  local filename
 
-  if [ -e "$source" ]; then
-    link_dotfile "$source" "$dest"
-  fi
+  for source in config/agents/*.md; do
+    [ -e "$source" ] || continue
+
+    filename="$(basename "$source")"
+    link_dotfile "$source" ".codex/$filename"
+  done
+}
+
+link_config_dirs() {
+  local source
+  local dirname
+
+  for source in config/*; do
+    [ -d "$source" ] || continue
+
+    dirname="$(basename "$source")"
+    if [ "$dirname" = "agents" ]; then
+      link_dotfile "$source" ".config/$dirname"
+      link_agent_config
+    else
+      link_dotfile "$source" ".config/$dirname"
+    fi
+  done
 }
 
 link_dotfile "zshrc" ".zshrc"
@@ -98,16 +148,5 @@ link_dotfile "vimrc" ".vimrc"
 link_dotfile "Brewfile" ".Brewfile"
 link_dotfile "gitconfig" ".gitconfig"
 link_dotfile "gitignore" ".gitignore"
-link_dotfile "AGENTS.md" ".codex/AGENTS.md"
-link_dotfile "GIT.md" ".codex/GIT.md"
-link_dotfile "GITHUB.md" ".codex/GITHUB.md"
-link_dotfile "LINEAR.md" ".codex/LINEAR.md"
-link_dotfile "WEB.md" ".codex/WEB.md"
-link_optional_dotfile "AGENTS.local.md" ".codex/AGENTS.local.md"
-link_optional_dotfile "GIT.local.md" ".codex/GIT.local.md"
-link_optional_dotfile "GITHUB.local.md" ".codex/GITHUB.local.md"
-link_optional_dotfile "LINEAR.local.md" ".codex/LINEAR.local.md"
-link_dotfile "config/alacritty" ".config/alacritty"
-link_dotfile "config/ghostty" ".config/ghostty"
-link_dotfile "config/tmux" ".config/tmux"
+link_config_dirs
 link_dotfile "../kickstart.nvim" ".config/nvim"

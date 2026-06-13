@@ -1,35 +1,62 @@
-# Global Codex Instructions
+# Dotfiles Repo Instructions
 
-This file is the global startup guide for Codex sessions on this machine. Keep
-it short: local repository instructions should define the project-specific way
-of working.
+This repository contains public dotfiles and installer scripts for a personal
+development environment. Keep changes small, explicit, and safe to publish.
 
-## Start Here
+## Repository Layout
 
-Before editing files for any coding or project task:
+- Root files such as `zshrc`, `vimrc`, `gitconfig`, and `Brewfile` are linked
+  into `$HOME` by `bin/make.sh`.
+- App configuration directories live under `config/` and are linked into
+  `$HOME/.config/`.
+- Reusable agent instructions live under `config/agents/`. Do not put global
+  agent companion files in the repository root.
+- Private machine-specific notes may live in ignored `*.local.md` files. Never
+  commit, quote, or expose their contents.
 
-1. Read the nearest repo-local `AGENTS.md` in the current workspace first.
-2. Treat that local file as the primary source of truth for project workflow,
-   verification, branch naming, issue handling, and environment setup.
-3. Read any companion files referenced by the local `AGENTS.md`.
-4. Check for matching ignored `*.local.md` files next to any instruction files
-   you read, apply them as local overrides, and never commit or quote their
-   contents.
-5. State a short startup receipt before editing: docs read, local overrides
-   checked, scope, issue or none, branch/worktree, expected files, and
-   verification plan.
+## Editing Rules
 
-If you have not done these steps, do not edit files.
+- Preserve the public nature of this repo. Do not add secrets, token names,
+  private credential commands, machine-local paths, or sensitive service details
+  to tracked files.
+- For GitHub, PR, issue, or CI work, read [GitHub](/Users/zwergius/.codex/GITHUB.md).
+- Keep `bin/make.sh` idempotent: rerunning it should report already-linked files
+  or create the same symlinks without changing tracked content.
+- Prefer loops and conventions over hard-coded per-app config links when adding
+  new folders under `config/`.
+- Avoid broad refactors of shell files unless the task is specifically about the
+  installer behavior.
 
-## Global Companion Files
+## Local Merge Workflow
 
-Use these focused global references when the local `AGENTS.md` or task scope
-calls for them:
+This repo does not require pull-request ceremony for routine personal dotfile
+changes. Use a branch for isolation while editing, then when the work is complete:
 
-- [GIT.md](GIT.md) for git branch isolation, worktrees, and local repository
-  workflow.
-- [GITHUB.md](GITHUB.md) for GitHub CLI, authentication, PRs, issues, and CI.
-- [LINEAR.md](LINEAR.md) for Linear issues, projects, comments, and workflow
-  changes.
-- [WEB.md](WEB.md) for frontend, browser, HTML, CSS, accessibility,
-  performance, and modern web platform work.
+1. Commit the branch.
+2. Merge it into `master` locally.
+3. Run `./bin/make.sh -f` from the main checkout, not from a temporary worktree.
+4. Inspect the real symlinks under `$HOME/.codex` and `$HOME/.config/agents`.
+
+Do not leave active home-directory symlinks pointing at temporary worktrees.
+
+## Verification
+
+For installer changes, run:
+
+```sh
+bash -n bin/make.sh
+env HOME=/private/tmp/dotfiles-verify bash bin/make.sh
+```
+
+When changing public agent files, scan for private credential details before
+publishing.
+
+Before finishing installer or agent-config changes:
+
+- Use a temporary `HOME` to verify the installer behavior without touching the
+  real home directory.
+- After merging locally, run the installer against the real home directory from
+  the main checkout, then inspect the generated symlinks under `$HOME/.codex`
+  and `$HOME/.config/agents`.
+- Do not rely only on the temporary `HOME` check; it proves script behavior, not
+  that the active user environment is up to date.

@@ -21,7 +21,7 @@ Run the installer from `$HOME` so it installs to the global user-level skill
 location instead of creating a project-local `./.agents` directory.
 
 After installation in the current session, read and follow the installed
-`SKILL.md` directly if the skill is not automatically loaded yet. New Codex
+`SKILL.md` directly if the skill is not automatically loaded yet. New agent
 sessions should discover it as a skill from the installed location.
 
 Follow the skill's own instructions. In particular, search for relevant guidance
