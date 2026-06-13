@@ -34,7 +34,7 @@ changes. Use a branch for isolation while editing, then when the work is complet
 
 1. Commit the branch.
 2. Merge it into `master` locally.
-3. Run `./bin/make.sh -f` from the main checkout, not from a temporary worktree.
+3. Run `./bin/make.sh` from the main checkout, not from a temporary worktree.
 4. Inspect the real symlinks under `$HOME/.codex` and `$HOME/.config/agents`.
 
 Do not leave active home-directory symlinks pointing at temporary worktrees.
