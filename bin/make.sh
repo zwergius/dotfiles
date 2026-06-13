@@ -58,7 +58,7 @@ move_to_backup_dir() {
     fi
   fi
 
-  if [ -e "$backup_path" ]; then
+  if [ -e "$backup_path" ] || [ -L "$backup_path" ]; then
     rm -rf "$backup_path"
   fi
 
@@ -86,7 +86,7 @@ link_dotfile() {
     return
   fi
 
-  if [ -e "$full_dest" ]; then
+  if [ -e "$full_dest" ] || [ -L "$full_dest" ]; then
     if [ "$overwrite_dotfiles" = "true" ]; then
       yellow "ℹ $dest already exists, moving to backup directory"
       if ! move_to_backup_dir "$dest"; then
