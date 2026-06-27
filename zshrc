@@ -70,5 +70,9 @@ export PNPM_HOME="/Users/zwergius/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
+# Prefer Homebrew formulae over global Node shims when command names overlap.
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
 # alacritty tab title
 preexec() { print -Pn "\e]0;$1%~\a" }
