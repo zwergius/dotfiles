@@ -16,6 +16,7 @@ brew 'n' # Node Version Manager
 brew 'tmux'
 brew 'cmake'
 brew 'ripgrep'
+brew 'tree-sitter-cli'
 brew 'diff-so-fancy'
 brew 'imagemagick'
 brew 'mkcert'
