@@ -126,6 +126,18 @@ link_agent_config() {
   done
 }
 
+link_agent_skills() {
+  local source
+  local dirname
+
+  for source in config/agents/skills/*; do
+    [ -d "$source" ] || continue
+
+    dirname="$(basename "$source")"
+    link_dotfile "$source" ".agents/skills/$dirname"
+  done
+}
+
 link_config_dirs() {
   local source
   local dirname
@@ -137,6 +149,7 @@ link_config_dirs() {
     if [ "$dirname" = "agents" ]; then
       link_dotfile "$source" ".config/$dirname"
       link_agent_config
+      link_agent_skills
     else
       link_dotfile "$source" ".config/$dirname"
     fi

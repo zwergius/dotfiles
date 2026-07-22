@@ -14,30 +14,14 @@ on browser automation or ad hoc text copying.
 
 Before editing:
 
-- Read the Linear issue, linked spec, and relevant existing files.
+- Read the Linear issue and linked specification.
 - Identify the acceptance criteria and non-goals.
 - If the issue lacks acceptance criteria or the scope is ambiguous, ask for
   clarification before editing.
-- Check current implementation patterns before adding new ones.
-- Inspect current git status so unrelated work is not disturbed.
+- Keep the implementation scoped to the issue's acceptance criteria.
 
-While editing:
-
-- Implement only the stated acceptance criteria.
-- Do not change unrelated files.
-- Do not refactor opportunistically.
-- Preserve existing behavior unless the issue explicitly changes it.
-- Follow existing code style, architecture, naming, and UI conventions.
-- Add or update tests when the change affects logic, data flow, permissions,
-  integrations, or user-visible behavior.
-
-Before opening a PR:
-
-- Run the relevant checks for the files touched.
-- Use the narrowest useful verification command for the task.
-- If a broad check is already known to have unrelated failures, say that plainly
-  in the PR and include the more targeted checks that passed.
-- Review the diff for unrelated changes.
+Generic editing, testing, and handoff discipline belongs to the shared Way of
+Working instructions rather than this Linear-specific companion.
 
 ## Linear Updates
 

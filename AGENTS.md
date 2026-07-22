@@ -9,8 +9,8 @@ development environment. Keep changes small, explicit, and safe to publish.
   into `$HOME` by `bin/make.sh`.
 - App configuration directories live under `config/` and are linked into
   `$HOME/.config/`.
-- Reusable agent instructions live under `config/agents/`. Do not put global
-  agent companion files in the repository root.
+- Reusable agent instructions and skills live under `config/agents/`. Do not put
+  global agent companions or skills in the repository root.
 - Private machine-specific notes may live in ignored `*.local.md` files. Never
   commit, quote, or expose their contents.
 
