@@ -16,16 +16,19 @@ task-specific companions behind explicit read triggers.
    `agent-workflows:shared` marker pair.
 3. Discover available companions from `~/.config/agents/*.md`, excluding
    `AGENTS.md` and ignored `*.local.md` files.
-4. Recommend only companions justified by the repository or the user's stated
-   workflow. Do not select every companion by default.
-5. Ask the user to confirm the companion selection. Keep this to one concise
+4. If `docs/agents/issue-tracker.md` exists, read it and recommend the
+   `issue-tracker` companion regardless of which provider it configures. Do not
+   recommend provider-specific companions for the same responsibility.
+5. Recommend other companions only when justified by the repository or the
+   user's stated workflow. Do not select every companion by default.
+6. Ask the user to confirm the companion selection. Keep this to one concise
    question.
-6. Preview the generated diff with `scripts/configure.py`. Never skip the
+7. Preview the generated diff with `scripts/configure.py`. Never skip the
    preview when the target already contains project guidance.
-7. Show the proposed generated section and ask the user to review it before
+8. Show the proposed generated section and ask the user to review it before
    writing.
-8. After confirmation, run the script with `--write`.
-9. Run the same command with `--check` and inspect `git diff --check`.
+9. After confirmation, run the script with `--write`.
+10. Run the same command with `--check` and inspect `git diff --check`.
 
 Use commands in this shape:
 
@@ -33,7 +36,7 @@ Use commands in this shape:
 python3 <skill-dir>/scripts/configure.py \
   --target <repo-root>/AGENTS.md \
   --companion git \
-  --companion linear
+  --companion issue-tracker
 ```
 
 Add `--write` only after review. Add `--check` after writing. The default shared
@@ -60,9 +63,10 @@ the installed catalog intentionally lives elsewhere.
 ## Companion Boundaries
 
 Keep foundational instructions that apply to nearly every task in the inline
-Way of Working. Keep conditional procedures such as Linear, GitHub, or frontend
-work in companions. If a companion repeats generic scoping, editing, testing, or
-handoff rules, move those rules to the shared source instead of generating both.
+Way of Working. Keep conditional procedures such as issue tracking, GitHub, or
+frontend work in companions. If a companion repeats generic scoping, editing,
+testing, or handoff rules, move those rules to the shared source instead of
+generating both.
 
 Project-specific commands, architecture, conventions, and exceptions stay
 outside the generated block in the repository's `AGENTS.md`.

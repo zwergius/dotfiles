@@ -64,7 +64,7 @@ before taking action; a Markdown link does not automatically load its contents.
 - [GIT.md](GIT.md) for git branch isolation, worktrees, and local repository
   workflow.
 - [GITHUB.md](GITHUB.md) for GitHub CLI, authentication, PRs, issues, and CI.
-- [LINEAR.md](LINEAR.md) for Linear issues, projects, comments, and workflow
-  changes.
+- [ISSUE_TRACKER.md](ISSUE_TRACKER.md) for provider-neutral issue lifecycle,
+  scope, updates, and review guidance.
 - [WEB.md](WEB.md) for frontend, browser, HTML, CSS, accessibility,
   performance, and modern web platform work.

@@ -33,7 +33,7 @@ def parse_args() -> argparse.Namespace:
         action="append",
         default=[],
         metavar="NAME",
-        help="Companion filename or stem, for example linear or LINEAR.md.",
+        help="Companion filename or stem, for example issue-tracker.",
     )
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--write", action="store_true", help="Update the target file.")
@@ -73,7 +73,7 @@ def normalize_companions(values: list[str], source_dir: Path) -> list[Path]:
         stem = value[:-3] if value.lower().endswith(".md") else value
         if not re.fullmatch(r"[A-Za-z0-9_-]+", stem) or stem.upper().endswith(".LOCAL"):
             raise ConfigurationError(f"invalid companion name: {value}")
-        filename = f"{stem.upper()}.md"
+        filename = f"{stem.upper().replace('-', '_')}.md"
         path = source_dir / filename
         if filename == "AGENTS.md":
             raise ConfigurationError("AGENTS.md is the shared source, not a companion")

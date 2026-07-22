@@ -126,6 +126,27 @@ link_agent_config() {
   done
 }
 
+remove_stale_agent_config_links() {
+  local dest
+  local target
+
+  for dest in "$HOME"/.codex/*.md; do
+    [ -L "$dest" ] || continue
+    [ -e "$dest" ] && continue
+
+    target="$(readlink "$dest")"
+    case "$target" in
+      "$link_root"/config/agents/*|"$repo_root"/config/agents/*)
+        if rm "$dest"; then
+          yellow "ℹ $(basename "$dest") stale managed link has been removed"
+        else
+          red "✘ couldn't remove stale managed link $dest"
+        fi
+        ;;
+    esac
+  done
+}
+
 link_agent_skills() {
   local source
   local dirname
@@ -148,6 +169,7 @@ link_config_dirs() {
     dirname="$(basename "$source")"
     if [ "$dirname" = "agents" ]; then
       link_dotfile "$source" ".config/$dirname"
+      remove_stale_agent_config_links
       link_agent_config
       link_agent_skills
     else

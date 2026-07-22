@@ -29,7 +29,7 @@ Every PR should explain:
 
 - What changed
 - Why
-- Linear issue identifier or link, when applicable
+- Linked issue identifier or URL, when applicable
 - Acceptance criteria checked, when applicable
 - Screenshots, Loom, or preview URL when relevant
 - Risk

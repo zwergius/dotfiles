@@ -6,11 +6,11 @@ repository workflow.
 ## Git Branch Isolation
 
 For coding work in a git repository, start each new agent thread on its own branch
-or isolated worktree before editing. When the work has Linear issues, never solve
+or isolated worktree before editing. When the work has tracker issues, never solve
 multiple issues in the same branch or worktree: ALWAYS use one issue, one branch.
 If a request mentions multiple issues, split the work and handle only one issue per
-branch before moving on to the next. Include the single issue ID in that branch
-name. Use the configured agent branch prefix when there is one, for example
+branch before moving on to the next. Include the single issue identifier in that
+branch name. Use the configured agent branch prefix when there is one, for example
 `agent/ABC-123-short-task`.
 
 Before switching branches or creating a worktree, inspect git status. If there are
