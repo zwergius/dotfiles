@@ -40,5 +40,5 @@ editor, terminal, Homebrew, Git, or Codex configuration from this repo, and it
 leaves other Hermes skills and configuration untouched.
 
 Run `$setup-agent-workflows` in Codex or `/setup-agent-workflows` in Hermes to
-preview and add the shared Way of Working plus selected companion triggers to a
-project's `AGENTS.md`.
+preview and add the shared Way of Working plus selected local-companion and
+upstream-reference triggers to a project's `AGENTS.md`.
