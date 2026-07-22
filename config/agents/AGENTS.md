@@ -41,6 +41,24 @@ If these steps are incomplete, do not edit files.
 - Keep secrets, credentials, private paths, and machine-specific details out of
   tracked files.
 
+### Commands and Verification
+
+- Discover the repository's canonical commands from its instructions, manifests,
+  task runner, and CI configuration. Do not invent commands when the project
+  already defines them.
+- In Node.js projects, use the package manager selected by the `packageManager`
+  field or lockfile. Prefer scripts from `package.json` over invoking local tools
+  directly with `npx`, `pnpm exec`, or equivalent commands.
+- Invoke a tool directly only when no suitable project script exists or when a
+  focused check requires arguments that the script cannot express. Do not add a
+  package script solely for a one-off agent command.
+- Plan verification in proportion to the changed behavior. Run the narrowest
+  relevant check first, then broader type checking, linting, tests, or builds
+  when the affected surface and repository conventions warrant them.
+- Never claim a check passed unless it ran successfully. Report the exact checks
+  run and explain anything skipped, unavailable, or requiring an external
+  service.
+
 ### Finish
 
 Before handing work back:
