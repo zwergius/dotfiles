@@ -1,6 +1,6 @@
 ---
 name: setup-agent-workflows
-description: Set up shared project workflows in AGENTS.md, including optional project integrations such as Svelte MCP configuration.
+description: Set up shared project workflows in AGENTS.md, including current upstream Web and Svelte references plus optional Svelte MCP configuration.
 ---
 
 # Setup Agent Workflows
@@ -15,25 +15,33 @@ task-specific companions behind explicit read triggers.
 2. Read `~/.config/agents/AGENTS.md` and confirm that it contains exactly one
    `agent-workflows:shared` marker pair.
 3. Discover available companions from `~/.config/agents/*.md`, excluding
-   `AGENTS.md` and ignored `*.local.md` files.
-4. Inspect `package.json` and framework configuration files. If the project
+   `AGENTS.md` and ignored `*.local.md` files. Treat `WEB.md` as a compatibility
+   redirect for existing projects, not a companion to recommend for new setup.
+4. If the existing generated block references `WEB.md`, recommend replacing it
+   with the upstream Web remote reference during this run.
+5. Inspect the repository for frontend evidence such as HTML, CSS, client-side
+   JavaScript or TypeScript, frontend dependencies, or framework configuration.
+   When present, recommend the published Modern Web Guidance skill as a remote
+   reference:
+   `Frontend web development=https://raw.githubusercontent.com/GoogleChrome/modern-web-guidance/main/skills/modern-web-guidance/SKILL.md`.
+6. Inspect `package.json` and framework configuration files. If the project
    depends on `svelte` or `@sveltejs/kit`, or contains `svelte.config.*`,
    recommend the upstream Svelte agent instructions as a remote reference:
    `Svelte=https://svelte.dev/docs/ai/instructions/llms.txt`.
-5. If `docs/agents/issue-tracker.md` exists, read it and recommend the
+7. If `docs/agents/issue-tracker.md` exists, read it and recommend the
    `issue-tracker` companion regardless of which provider it configures. Do not
    recommend provider-specific companions for the same responsibility.
-6. Recommend other companions only when justified by the repository or the
+8. Recommend other companions only when justified by the repository or the
    user's stated workflow. Do not select every companion by default.
-7. Ask the user to confirm the companion selection. Keep this to one concise
-   question.
-8. Preview the generated diff with `scripts/configure.py`. Never skip the
+9. Ask the user to confirm the companion and remote-reference selection. Keep
+   this to one concise question.
+10. Preview the generated diff with `scripts/configure.py`. Never skip the
    preview when the target already contains project guidance.
-9. Show the proposed generated section and ask the user to review it before
+11. Show the proposed generated section and ask the user to review it before
    writing.
-10. After confirmation, run the script with `--write`.
-11. Run the same command with `--check` and inspect `git diff --check`.
-12. For a confirmed Svelte project, inspect the repository for an existing
+12. After confirmation, run the script with `--write`.
+13. Run the same command with `--check` and inspect `git diff --check`.
+14. For a confirmed Svelte project, inspect the repository for an existing
     Svelte MCP configuration. Explain that the remote reference supplies current
     instructions but does not configure an MCP client. If project-level Svelte
     MCP configuration is missing, ask whether to run the official interactive
@@ -49,6 +57,8 @@ python3 <skill-dir>/scripts/configure.py \
   --target <repo-root>/AGENTS.md \
   --companion git \
   --companion issue-tracker \
+  --remote-reference \
+    'Frontend web development=https://raw.githubusercontent.com/GoogleChrome/modern-web-guidance/main/skills/modern-web-guidance/SKILL.md' \
   --remote-reference \
     'Svelte=https://svelte.dev/docs/ai/instructions/llms.txt'
 ```
@@ -79,10 +89,9 @@ the installed catalog intentionally lives elsewhere.
 ## Companion Boundaries
 
 Keep foundational instructions that apply to nearly every task in the inline
-Way of Working. Keep conditional procedures such as issue tracking, GitHub, or
-frontend work in companions. If a companion repeats generic scoping, editing,
-testing, or handoff rules, move those rules to the shared source instead of
-generating both.
+Way of Working. Keep conditional procedures in companions or current upstream
+references. If either repeats generic scoping, editing, testing, or handoff
+rules, move those rules to the shared source instead of generating both.
 
 Project-specific commands, architecture, conventions, and exceptions stay
 outside the generated block in the repository's `AGENTS.md`.
