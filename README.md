@@ -23,18 +23,21 @@ clone and run https://github.com/kristovatlas/osx-config-check
 
 ## Shared agent workflows
 
-The installer exposes shared companion files under `~/.config/agents/` and
-repo-owned skills under `~/.agents/skills/` without replacing other installed
-skills.
+The default installer exposes shared companion files under
+`~/.config/agents/` and repo-owned skills under `~/.agents/skills/` without
+replacing other installed skills. Codex discovers skills from that location.
 
-Codex discovers skills from `~/.agents/skills/`. For Hermes Agent, add the same
-directory to `~/.hermes/config.yaml`:
+On a Hermes Agent machine, install only the shared agent guidance and skills:
 
-```yaml
-skills:
-  external_dirs:
-    - ~/.agents/skills
+```sh
+./bin/make.sh --hermes
 ```
+
+This links the companion catalog to `~/.config/agents/`, installs each repo-owned
+skill in the canonical `~/.agents/skills/` directory, and links those skills into
+Hermes's primary `~/.hermes/skills/` directory. It does not install the shell,
+editor, terminal, Homebrew, Git, or Codex configuration from this repo, and it
+leaves other Hermes skills and configuration untouched.
 
 Run `$setup-agent-workflows` in Codex or `/setup-agent-workflows` in Hermes to
 preview and add the shared Way of Working plus selected companion triggers to a
