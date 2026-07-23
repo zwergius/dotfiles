@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Initialize a variable that will hold the value related to the -f flag
+# Installer options
 overwrite_dotfiles=false
+install_mode=full
 
 repo_root="$(cd "$(dirname "$0")/.." && pwd -P)"
 link_root="$repo_root"
@@ -28,6 +29,8 @@ while [ "$1" != "" ]; do
     case $1 in
         -f ) overwrite_dotfiles=true
              ;;
+        --hermes ) install_mode=hermes
+                   ;;
         * )  # You can process other arguments here
              ;;
     esac
@@ -66,20 +69,10 @@ move_to_backup_dir() {
   return $?
 }
 
-link_dotfile() {
-  local source="$1"
+link_source() {
+  local full_source="$1"
   local dest="$2"
   local full_dest="$HOME/$dest"
-  local full_source="$link_root/$source"
-
-  if [ ! -e "$full_source" ]; then
-    if [ "$link_root" != "$repo_root" ] && [ "$temporary_home" = "false" ] && [ "${DOTFILES_ALLOW_WORKTREE_LINKS:-false}" != "true" ]; then
-      red "✘ $source only exists in this linked worktree; run from the main checkout after merge"
-      return
-    fi
-
-    full_source="$repo_root/$source"
-  fi
 
   if [ "$overwrite_dotfiles" = "false" ] && [ -L "$full_dest" ] && [ "$full_dest" -ef "$full_source" ]; then
     yellow "✔ $dest is already linked"
@@ -114,6 +107,23 @@ link_dotfile() {
   fi
 }
 
+link_dotfile() {
+  local source="$1"
+  local dest="$2"
+  local full_source="$link_root/$source"
+
+  if [ ! -e "$full_source" ]; then
+    if [ "$link_root" != "$repo_root" ] && [ "$temporary_home" = "false" ] && [ "${DOTFILES_ALLOW_WORKTREE_LINKS:-false}" != "true" ]; then
+      red "✘ $source only exists in this linked worktree; run from the main checkout after merge"
+      return
+    fi
+
+    full_source="$repo_root/$source"
+  fi
+
+  link_source "$full_source" "$dest"
+}
+
 link_agent_config() {
   local source
   local filename
@@ -123,6 +133,55 @@ link_agent_config() {
 
     filename="$(basename "$source")"
     link_dotfile "$source" ".codex/$filename"
+  done
+}
+
+remove_stale_agent_config_links() {
+  local dest
+  local target
+
+  for dest in "$HOME"/.codex/*.md; do
+    [ -L "$dest" ] || continue
+    [ -e "$dest" ] && continue
+
+    target="$(readlink "$dest")"
+    case "$target" in
+      "$link_root"/config/agents/*|"$repo_root"/config/agents/*)
+        if rm "$dest"; then
+          yellow "ℹ $(basename "$dest") stale managed link has been removed"
+        else
+          red "✘ couldn't remove stale managed link $dest"
+        fi
+        ;;
+    esac
+  done
+}
+
+link_agent_skills() {
+  local destination_root="${1:-.agents/skills}"
+  local source
+  local dirname
+
+  for source in config/agents/skills/*; do
+    [ -d "$source" ] || continue
+
+    dirname="$(basename "$source")"
+    link_dotfile "$source" "$destination_root/$dirname"
+  done
+}
+
+link_hermes_agent_skills() {
+  local source
+  local dirname
+  local canonical_skill
+
+  for source in config/agents/skills/*; do
+    [ -d "$source" ] || continue
+
+    dirname="$(basename "$source")"
+    canonical_skill="$HOME/.agents/skills/$dirname"
+    [ -e "$canonical_skill" ] || continue
+    link_source "$canonical_skill" ".hermes/skills/$dirname"
   done
 }
 
@@ -136,17 +195,25 @@ link_config_dirs() {
     dirname="$(basename "$source")"
     if [ "$dirname" = "agents" ]; then
       link_dotfile "$source" ".config/$dirname"
+      remove_stale_agent_config_links
       link_agent_config
+      link_agent_skills ".agents/skills"
     else
       link_dotfile "$source" ".config/$dirname"
     fi
   done
 }
 
-link_dotfile "zshrc" ".zshrc"
-link_dotfile "vimrc" ".vimrc"
-link_dotfile "Brewfile" ".Brewfile"
-link_dotfile "gitconfig" ".gitconfig"
-link_dotfile "gitignore" ".gitignore"
-link_config_dirs
-link_dotfile "../kickstart.nvim" ".config/nvim"
+if [ "$install_mode" = "hermes" ]; then
+  link_dotfile "config/agents" ".config/agents"
+  link_agent_skills ".agents/skills"
+  link_hermes_agent_skills
+else
+  link_dotfile "zshrc" ".zshrc"
+  link_dotfile "vimrc" ".vimrc"
+  link_dotfile "Brewfile" ".Brewfile"
+  link_dotfile "gitconfig" ".gitconfig"
+  link_dotfile "gitignore" ".gitignore"
+  link_config_dirs
+  link_dotfile "../kickstart.nvim" ".config/nvim"
+fi

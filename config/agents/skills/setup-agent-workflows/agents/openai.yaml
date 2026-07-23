@@ -1,0 +1,4 @@
+interface:
+  display_name: "Set Up Agent Workflows"
+  short_description: "Share modular workflow guidance across projects"
+  default_prompt: "Use $setup-agent-workflows to configure shared workflow guidance for this project."

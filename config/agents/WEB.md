@@ -1,37 +1,12 @@
 # Web Guidance
 
-Use this companion file for frontend, browser, HTML, CSS, client-side JavaScript,
-accessibility, forms, performance, security headers, privacy, passkeys, and
-modern web platform API work.
+This compatibility companion keeps existing project instructions working. For
+frontend, browser, HTML, CSS, client-side JavaScript, accessibility, forms,
+performance, security headers, privacy, passkeys, or modern web platform API
+tasks, fetch and follow the current published Modern Web Guidance skill once
+before taking action:
 
-## Modern Web Guidance
+`https://raw.githubusercontent.com/GoogleChrome/modern-web-guidance/main/skills/modern-web-guidance/SKILL.md`
 
-At the start of a web task, check whether the Modern Web Guidance skill is
-installed:
-
-- `$HOME/.agents/skills/modern-web-guidance/SKILL.md`
-
-If it is not installed, install it with the Chrome team's recommended installer:
-
-```sh
-(cd "$HOME" && npx -y modern-web-guidance@latest install)
-```
-
-Run the installer from `$HOME` so it installs to the global user-level skill
-location instead of creating a project-local `./.agents` directory.
-
-After installation in the current session, read and follow the installed
-`SKILL.md` directly if the skill is not automatically loaded yet. New agent
-sessions should discover it as a skill from the installed location.
-
-Follow the skill's own instructions. In particular, search for relevant guidance
-before implementing frontend code, then retrieve and apply the most relevant
-guide:
-
-```sh
-npx -y modern-web-guidance@latest search "<task summary>"
-npx -y modern-web-guidance@latest retrieve "<guide-id>"
-```
-
-Prefer retrieved guidance when it applies, adapting it to the project's
-framework, design system, and browser support policy.
+New project setup should reference that upstream document directly instead of
+adding this companion.

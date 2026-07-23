@@ -1,0 +1,233 @@
+#!/usr/bin/env python3
+"""Render shared workflow guidance into a project's AGENTS.md."""
+
+from __future__ import annotations
+
+import argparse
+import difflib
+import re
+import sys
+from pathlib import Path
+from urllib.parse import urlsplit
+
+
+SHARED_START = "<!-- agent-workflows:shared:start -->"
+SHARED_END = "<!-- agent-workflows:shared:end -->"
+GENERATED_START = "<!-- agent-workflows:generated:start -->"
+GENERATED_END = "<!-- agent-workflows:generated:end -->"
+DEFAULT_SOURCE = Path("~/.config/agents/AGENTS.md").expanduser()
+DEFAULT_TARGET = Path("AGENTS.md")
+
+
+class ConfigurationError(ValueError):
+    """Raised when workflow sources or generated markers are unsafe to use."""
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Preview, write, or check shared AGENTS.md workflow guidance."
+    )
+    parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
+    parser.add_argument("--target", type=Path, default=DEFAULT_TARGET)
+    parser.add_argument(
+        "--companion",
+        action="append",
+        default=[],
+        metavar="NAME",
+        help="Companion filename or stem, for example issue-tracker.",
+    )
+    parser.add_argument(
+        "--remote-reference",
+        action="append",
+        default=[],
+        metavar="LABEL=URL",
+        help="Remote instructions to fetch for matching tasks.",
+    )
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--write", action="store_true", help="Update the target file.")
+    mode.add_argument(
+        "--check",
+        action="store_true",
+        help="Exit nonzero when the target differs from the rendered result.",
+    )
+    return parser.parse_args()
+
+
+def require_single_pair(text: str, start: str, end: str, label: str) -> None:
+    start_count = text.count(start)
+    end_count = text.count(end)
+    if start_count != 1 or end_count != 1:
+        raise ConfigurationError(
+            f"{label} must contain exactly one marker pair; "
+            f"found {start_count} start and {end_count} end markers"
+        )
+    if text.index(start) > text.index(end):
+        raise ConfigurationError(f"{label} end marker appears before its start marker")
+
+
+def extract_shared(source_text: str) -> str:
+    require_single_pair(source_text, SHARED_START, SHARED_END, "shared source")
+    start = source_text.index(SHARED_START) + len(SHARED_START)
+    end = source_text.index(SHARED_END)
+    shared = source_text[start:end].strip()
+    if not shared:
+        raise ConfigurationError("shared source marker pair is empty")
+    return shared
+
+
+def normalize_companions(values: list[str], source_dir: Path) -> list[Path]:
+    companions: dict[str, Path] = {}
+    for value in values:
+        stem = value[:-3] if value.lower().endswith(".md") else value
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", stem) or stem.upper().endswith(".LOCAL"):
+            raise ConfigurationError(f"invalid companion name: {value}")
+        filename = f"{stem.upper().replace('-', '_')}.md"
+        path = source_dir / filename
+        if filename == "AGENTS.md":
+            raise ConfigurationError("AGENTS.md is the shared source, not a companion")
+        if not path.is_file():
+            raise ConfigurationError(f"companion does not exist: {path}")
+        companions[filename] = path
+    return [companions[name] for name in sorted(companions)]
+
+
+def companion_title(companion: Path) -> str:
+    for line in companion.read_text(encoding="utf-8").splitlines():
+        if line.startswith("# "):
+            title = line[2:].strip()
+            for suffix in (" Instructions", " Guidance"):
+                if title.endswith(suffix):
+                    return title[: -len(suffix)]
+            return title
+    return companion.stem.replace("_", " ").replace("-", " ").title()
+
+
+def normalize_remote_references(values: list[str]) -> list[tuple[str, str]]:
+    references: dict[str, tuple[str, str]] = {}
+    for value in values:
+        label, separator, url = value.partition("=")
+        label = label.strip()
+        url = url.strip()
+        if not separator or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9 _-]*", label):
+            raise ConfigurationError(f"invalid remote reference: {value}")
+        parsed = urlsplit(url)
+        has_credentials = parsed.username is not None or parsed.password is not None
+        if (
+            parsed.scheme != "https"
+            or not parsed.netloc
+            or has_credentials
+            or any(character.isspace() for character in url)
+        ):
+            raise ConfigurationError(
+                f"remote reference must use an HTTPS URL without credentials: {url}"
+            )
+        references[label.casefold()] = (label, url)
+    return [references[key] for key in sorted(references)]
+
+
+def render_block(
+    shared: str,
+    companions: list[Path],
+    remote_references: list[tuple[str, str]],
+) -> str:
+    parts = [GENERATED_START, "<!-- Generated by $setup-agent-workflows. -->", shared]
+    if companions:
+        parts.extend(["", "## Conditional Companion Files", ""])
+        for companion in companions:
+            title = companion_title(companion)
+            parts.append(
+                f"- For tasks involving {title}, read "
+                f"`~/.config/agents/{companion.name}` once before taking action."
+            )
+    if remote_references:
+        parts.extend(["", "## Conditional Remote References", ""])
+        for label, url in remote_references:
+            parts.append(
+                f"- For tasks involving {label}, fetch and follow `{url}` once "
+                "before taking action."
+            )
+    parts.append(GENERATED_END)
+    return "\n".join(parts)
+
+
+def update_target(current: str, block: str) -> str:
+    has_start = GENERATED_START in current
+    has_end = GENERATED_END in current
+    if has_start or has_end:
+        require_single_pair(current, GENERATED_START, GENERATED_END, "target")
+        start = current.index(GENERATED_START)
+        end = current.index(GENERATED_END) + len(GENERATED_END)
+        return current[:start] + block + current[end:]
+
+    if not current:
+        return f"{block}\n"
+    return f"{block}\n\n{current.lstrip()}"
+
+
+def render(
+    source: Path,
+    target: Path,
+    companion_names: list[str],
+    remote_reference_values: list[str],
+) -> tuple[str, str]:
+    if not source.is_file():
+        raise ConfigurationError(f"shared source does not exist: {source}")
+    source_text = source.read_text(encoding="utf-8")
+    shared = extract_shared(source_text)
+    companions = normalize_companions(companion_names, source.parent)
+    remote_references = normalize_remote_references(remote_reference_values)
+    current = target.read_text(encoding="utf-8") if target.exists() else ""
+    return current, update_target(
+        current, render_block(shared, companions, remote_references)
+    )
+
+
+def print_diff(target: Path, current: str, proposed: str) -> None:
+    before = current.splitlines(keepends=True)
+    after = proposed.splitlines(keepends=True)
+    sys.stdout.writelines(
+        difflib.unified_diff(
+            before,
+            after,
+            fromfile=str(target),
+            tofile=f"{target} (proposed)",
+        )
+    )
+
+
+def main() -> int:
+    args = parse_args()
+    source = args.source.expanduser().resolve()
+    target = args.target.expanduser().resolve()
+    try:
+        current, proposed = render(
+            source, target, args.companion, args.remote_reference
+        )
+    except (ConfigurationError, OSError, UnicodeError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 2
+
+    if args.check:
+        if current == proposed:
+            print(f"{target} is current")
+            return 0
+        print_diff(target, current, proposed)
+        return 1
+
+    if args.write:
+        if current == proposed:
+            print(f"{target} is already current")
+            return 0
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temporary = target.with_name(f".{target.name}.agent-workflows.tmp")
+        temporary.write_text(proposed, encoding="utf-8")
+        temporary.replace(target)
+        print(f"updated {target}")
+        return 0
+
+    print_diff(target, current, proposed)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
