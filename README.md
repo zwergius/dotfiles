@@ -41,4 +41,7 @@ leaves other Hermes skills and configuration untouched.
 
 Run `$setup-agent-workflows` in Codex or `/setup-agent-workflows` in Hermes to
 preview and add the shared Way of Working plus selected local-companion and
-upstream-reference triggers to a project's `AGENTS.md`.
+upstream-reference triggers to a project's `AGENTS.md`. When Matt Pocock's
+project configuration is absent, the skill can optionally install and run its
+setup first so issue-tracker, triage-label, and domain-doc guidance is available
+for companion selection.
