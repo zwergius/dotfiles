@@ -73,6 +73,20 @@ Before handing work back:
    change, or follow-up issue.
 <!-- agent-workflows:shared:end -->
 
+## Provider-first integrations
+
+Before designing an automation or service integration, identify which platform
+owns the event and check its current official capabilities: native triggers,
+workflows, hosted execution, authentication, retries, and delivery controls.
+Prefer a supported platform feature that meets the requirement. Check the whole
+path from trigger to execution before claiming it fits; a native event alone
+may not provide a suitable place to run the work.
+
+If custom code or infrastructure is still needed, state which native options
+were checked and the concrete gap each leaves. Build only the smallest adapter
+for that gap. Include the choice and its operational cost in the reviewable
+proposal before implementation. Apply this to every provider, not just GitHub.
+
 ## Global Companion Files
 
 Use these focused global references when the local `AGENTS.md`, equivalent agent
